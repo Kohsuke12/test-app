@@ -1,33 +1,38 @@
 // 変更箇所
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { posts } from "../../data/posts";
 import classes from "./Home.module.css";
 
 export const Home = () => {
   return (
     <main className={classes.mainContent}>
-        <h1>記事一覧</h1>
-        <div className={classes.postsContainer}>
-          {posts.map(post => (
-            <article key={post.id} className={classes.postCard}>
+      <h1>記事一覧</h1>
+      <div className={classes.postsContainer}>
+        {posts.map((post) => (
+          <Link to={`/post/${post.id}`} key={post.id} className={classes.postLink}>
+            <article className={classes.postCard}>
               <img src={post.thumbnailUrl} alt={post.title} className={classes.postThumbnail} />
               <div className={classes.postContainer}>
                 <div className={classes.postMeta}>
                   <h2 className={classes.postTitle}>{post.title}</h2>
-                    <time>{new Date(post.createdAt).toLocaleDateString('ja-JP')}</time>
-                    <div className={classes.postCategories}>
-                      {post.categories.map(category => (
-                        <span key={category} className={classes.categoryTag}>{category}</span>
-                      ))}
-                    </div>
-                </div>
-                  <div className={classes.postContent} dangerouslySetInnerHTML={{ __html: post.content }}>
+                  <time>{new Date(post.createdAt).toLocaleDateString('ja-JP')}</time>
+                  <div className={classes.postCategories}>
+                    {post.categories.map(category => (
+                      <span key={category} className={classes.categoryTag}>{category}</span>
+                    ))}
                   </div>
+                </div>
+                <div 
+                  className={classes.postContent}
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
               </div>
             </article>
-          ))}
-        </div>
-      </main>
+          </Link>
+        ))}
+      </div>
+    </main>
   );
 };
