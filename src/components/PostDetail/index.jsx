@@ -16,8 +16,9 @@ export const PostDetail = () => {
           throw new Error('記事の取得に失敗しました');
         }
         const data = await response.json();
-        setPost(data);
+        setPost(data.post || null);
       } catch (err) {
+        console.error('Error fetching post:', err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -48,7 +49,7 @@ export const PostDetail = () => {
           {new Date(post.createdAt).toLocaleDateString('ja-JP')}
         </time>
         <div className={classes.categories}>
-          {post.categories.map(category => (
+          {(post.categories || []).map(category => (
             <span key={category} className={classes.category}>{category}</span>
           ))}
         </div>

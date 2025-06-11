@@ -17,9 +17,8 @@ export const Home = () => {
           throw new Error('記事の取得に失敗しました');
         }
         const data = await response.json();
-        // APIレスポンスの構造を確認し、適切なデータを設定
-        console.log('API Response:', data);
-        setPosts(Array.isArray(data) ? data : data.posts || []);
+        // APIレスポンスからpostsプロパティを取得
+        setPosts(data.posts || []);
       } catch (err) {
         console.error('Error fetching posts:', err);
         setError(err.message);
@@ -48,7 +47,7 @@ export const Home = () => {
       <h1>記事一覧</h1>
       <div className={classes.postsContainer}>
         {posts.map((post) => (
-          <Link to={`/post/${post.id}`} key={post.id} className={classes.postLink}>
+          <Link to={`/posts/${post.id}`} key={post.id} className={classes.postLink}>
             <article className={classes.postCard}>
               <img src={post.thumbnailUrl} alt={post.title} className={classes.postThumbnail} />
               <div className={classes.postContainer}>
