@@ -1,0 +1,21 @@
+.AppHeader {
+    background-color: #282c34;
+    min-height: 10vh;
+    display: flex;
+    justify-content: flex-start;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+
+  .logoContainer  {
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+  }
+
+  .logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+  }
