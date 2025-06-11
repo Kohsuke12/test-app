@@ -11,7 +11,7 @@ export const Home = () => {
       <h1>記事一覧</h1>
       <div className={classes.postsContainer}>
         {posts.map((post) => (
-          <Link to={`/post/${post.id}`} key={post.id} className={classes.postLink}>
+          <Link to={`/posts/${post.id}`} key={post.id} className={classes.postLink}>
             <article className={classes.postCard}>
               <img src={post.thumbnailUrl} alt={post.title} className={classes.postThumbnail} />
               <div className={classes.postContainer}>
