@@ -1,3 +1,5 @@
+// 変更箇所
+
 import React from "react";
 import { posts } from "../../data/posts";
 import classes from "./Home.module.css";
