@@ -38,9 +38,7 @@ export const Home = () => {
     return <div className={classes.mainContent}>エラー: {error}</div>;
   }
 
-  if (!posts || posts.length === 0) {
-    return <div className={classes.mainContent}>記事がありません。</div>;
-  }
+  
 
   return (
     <main className={classes.mainContent}>
