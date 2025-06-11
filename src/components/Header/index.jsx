@@ -1,3 +1,5 @@
+// 変更箇所
+
 import React from "react";
 import logo from '../../logo.png';
 import classes from "./Header.module.css";
