@@ -17,8 +17,11 @@ export const Home = () => {
           throw new Error('記事の取得に失敗しました');
         }
         const data = await response.json();
-        setPosts(data);
+        // APIレスポンスの構造を確認し、適切なデータを設定
+        console.log('API Response:', data);
+        setPosts(Array.isArray(data) ? data : data.posts || []);
       } catch (err) {
+        console.error('Error fetching posts:', err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -34,6 +37,10 @@ export const Home = () => {
 
   if (error) {
     return <div className={classes.mainContent}>エラー: {error}</div>;
+  }
+
+  if (!posts || posts.length === 0) {
+    return <div className={classes.mainContent}>記事がありません。</div>;
   }
 
   return (
