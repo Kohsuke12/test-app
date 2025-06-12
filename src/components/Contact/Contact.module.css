@@ -1,0 +1,139 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.form {
+  background: white;
+  padding: 2rem;
+}
+
+.formGroup {
+  margin-bottom: 2rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.required {
+  color: #ff0000;
+  margin-left: 0.25rem;
+  font-weight: bold;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.errorInput {
+  border-color: #ff0000;
+}
+
+.errorInput:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+}
+
+.errorText {
+  color: #ff0000;
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+}
+
+.charCount {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.submitButton {
+  flex: 1;
+  padding: 1rem;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clearButton {
+  flex: 1;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clearButton:hover {
+  background-color: #e0e0e0;
+}
+
+.submitButton:hover {
+  background-color: #0052a3;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.successMessage {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #e6ffe6;
+  color: #006600;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.errorMessage {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fff0f0;
+  color: #ff0000;
+  border-radius: 4px;
+  text-align: center;
+} 
