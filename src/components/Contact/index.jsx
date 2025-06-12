@@ -13,7 +13,6 @@ export const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
 
   const validateForm = () => {
     const newErrors = {
@@ -61,7 +60,6 @@ export const Contact = () => {
       ...prev,
       [name]: value
     }));
-    // 入力時のバリデーション
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -78,26 +76,52 @@ export const Contact = () => {
     }
 
     setIsSubmitting(true);
-    setSubmitStatus(null);
 
     try {
-      // ここにAPI呼び出しを追加予定
-      console.log('送信されたデータ:', formData);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      setErrors({ name: '', email: '', message: '' });
+      const response = await fetch('https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Origin': window.location.origin,
+        },
+        mode: 'cors',
+        credentials: 'omit',
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || '送信に失敗しました');
+      }
+
+      alert('送信しました');
+      handleClear();
     } catch (error) {
       console.error('送信エラー:', error);
-      setSubmitStatus('error');
+      alert('送信に失敗しました。時間をおいて再度お試しください。');
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleClear = () => {
+    setFormData({
+      name: '',
+      email: '',
+      message: ''
+    });
+    setErrors({
+      name: '',
+      email: '',
+      message: ''
+    });
+  };
+
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>問合わせフォーム</h1>
-      <form onSubmit={handleSubmit} className={classes.form}>
+      <form onSubmit={handleSubmit} className={classes.form} noValidate>
         <div className={classes.formGroup}>
           <label htmlFor="name" className={classes.label}>お名前</label>
           <input
@@ -106,9 +130,8 @@ export const Contact = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            required
-            maxLength={30}
-            className={classes.input}
+            className={`${classes.input} ${errors.name ? classes.errorInput : ''}`}
+            disabled={isSubmitting}
           />
           {errors.name && <p className={classes.errorText}>{errors.name}</p>}
         </div>
@@ -121,8 +144,8 @@ export const Contact = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            required
-            className={classes.input}
+            className={`${classes.input} ${errors.email ? classes.errorInput : ''}`}
+            disabled={isSubmitting}
           />
           {errors.email && <p className={classes.errorText}>{errors.email}</p>}
         </div>
@@ -134,33 +157,31 @@ export const Contact = () => {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            required
-            maxLength={500}
-            className={classes.textarea}
+            className={`${classes.textarea} ${errors.message ? classes.errorInput : ''}`}
             rows="5"
+            disabled={isSubmitting}
           />
           {errors.message && <p className={classes.errorText}>{errors.message}</p>}
         </div>
 
-        <button 
-          type="submit" 
-          className={classes.submitButton}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? '送信中...' : '送信する'}
-        </button>
+        <div className={classes.buttonContainer}>
+          <button 
+            type="submit" 
+            className={classes.submitButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? '送信中...' : '送信する'}
+          </button>
 
-        {submitStatus === 'success' && (
-          <p className={classes.successMessage}>
-            お問い合わせを受け付けました。
-          </p>
-        )}
-
-        {submitStatus === 'error' && (
-          <p className={classes.errorMessage}>
-            送信に失敗しました。時間をおいて再度お試しください。
-          </p>
-        )}
+          <button
+            type="button"
+            className={classes.clearButton}
+            onClick={handleClear}
+            disabled={isSubmitting}
+          >
+            クリア
+          </button>
+        </div>
       </form>
     </div>
   );
